@@ -70,7 +70,7 @@ def entryPoint(jobctx):
 if __name__ == "__main__":
     def make_context():
         return {
-            "meetingId": "4mch-akup-kssd",  # Use the generated meeting ID from earlier
+            "meetingId": "hzm6-7i1y-mfbv",  # Use the generated meeting ID from earlier
             "name": "VideoSDK's AI Agent",   # Name displayed in the meeting
         }
 
