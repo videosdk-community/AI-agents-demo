@@ -8,7 +8,7 @@ from openai.types.beta.realtime.session import TurnDetection
 from prompts import PROMPTS 
 
 # Define which use case prompt to use (e.g., "Tutor", "Doctor", "Recruiter", "Companion").
-usecase = "Translate"  # Change this to the desired use case
+usecase = "Companion"  # Change this to the desired use case
 
 class VoiceAgent(Agent):
     def __init__(self):
