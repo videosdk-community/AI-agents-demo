@@ -1,8 +1,8 @@
 import asyncio
 import os
 from videosdk.agents import Agent, AgentSession, RealTimePipeline, WorkerJob
-from videosdk.plugins.google import GeminiRealtime, GeminiLiveConfig
-from google.genai.types import AudioTranscriptionConfig
+# from videosdk.plugins.google import GeminiRealtime, GeminiLiveConfig
+# from google.genai.types import AudioTranscriptionConfig
 from videosdk.plugins.openai import OpenAIRealtime, OpenAIRealtimeConfig
 from openai.types.beta.realtime.session import TurnDetection
 from prompts import PROMPTS 
