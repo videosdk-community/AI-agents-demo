@@ -1,3 +1,4 @@
 videosdk-plugins-openai
+videosdk-plugins-google
 videosdk-agents
 
