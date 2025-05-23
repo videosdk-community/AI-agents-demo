@@ -1,18 +1,20 @@
 import asyncio
+import os
 from videosdk.agents import Agent, AgentSession, RealTimePipeline, WorkerJob
 from videosdk.plugins.google import GeminiRealtime, GeminiLiveConfig
 from google.genai.types import AudioTranscriptionConfig
 from videosdk.plugins.openai import OpenAIRealtime, OpenAIRealtimeConfig
-from openai.types.beta.realtime.session import  TurnDetection
+from openai.types.beta.realtime.session import TurnDetection
+from prompts import PROMPTS 
 
-
+# Define which use case prompt to use (e.g., "Tutor", "Doctor", "Recruiter", "Companion").
+usecase = "Translate"  # Change this to the desired use case
 
 class VoiceAgent(Agent):
     def __init__(self):
+        prompt_text = PROMPTS.get(usecase, "")
         super().__init__(
-            instructions="""
-
-           """
+            instructions=prompt_text
         )
 
     async def on_enter(self) -> None:
@@ -38,7 +40,7 @@ async def start_session(jobctx):
 )
 #     model = GeminiRealtime(
 #     model="gemini-2.5-flash-exp-native-audio-thinking-dialog",
-#     api_key="AIzaSyARnYlVzgb73R_5RSjq1oYu52R-Y4TE7TY",  # Or use environment variable
+#     api_key="AIzaSyBIPAjdDSwi5oP0cT_Aaa9QYXuP-FJpCWo",  # Or use environment variable
 #     config=GeminiLiveConfig(
 #         response_modalities=["AUDIO"]
 #     )
@@ -68,7 +70,7 @@ def entryPoint(jobctx):
 if __name__ == "__main__":
     def make_context():
         return {
-            "meetingId": "nrn8-5lb2-zadr",  # Use the generated meeting ID from earlier
+            "meetingId": "4mch-akup-kssd",  # Use the generated meeting ID from earlier
             "name": "VideoSDK's AI Agent",   # Name displayed in the meeting
         }
 
