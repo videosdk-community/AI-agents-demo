@@ -60,7 +60,7 @@ Create a file named `.env` in your project root with the following content:
 
 ```env
 OPENAI_API_KEY="<YOUR_OPENAI_API_KEY>"
-VIDEOSDK_AUTH_TOKEN"<YOUR_VIDEOSDK_AUTH_TOKEN>"
+VIDEOSDK_AUTH_TOKEN="<YOUR_VIDEOSDK_AUTH_TOKEN>"
 ```
 
 Replace the placeholders with your actual API keys.
