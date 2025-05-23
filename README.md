@@ -1,53 +1,165 @@
-# VideoSDK AI Agent Voice Assistant
+# VideoSDK AI Voice Agent
 
-This project implements a multi-agent voice assistant using [VideoSDK Agents](https://docs.videosdk.live/agents/overview) and `videosdk-plugins-openai`. It enables real-time conversational AI agents that can join meetings, respond using voice, and be customized using structured prompting logic.
+This project demonstrates how to build an AI-powered voice agent using the [VideoSDK Agents SDK](https://docs.videosdk.live) and OpenAI. The agent can join a VideoSDK meeting and perform various roles based on configurable prompts—such as a real-time translator, tutor, doctor, recruiter, or companion.
 
-## Features
+---
 
-- Multi-agent support (e.g., triage, billing, support personas)
-- Real-time speech synthesis and response using OpenAI GPT-4o
-- Modular prompting logic using `prompts.py` and `prompting.py`
-- Designed for voice-based applications in domains like medical triage
+## 🚀 Features
 
-## Project Structure
+- 🎙 Real-time voice interaction in VideoSDK meetings.
+- 🤖 Integration with OpenAI's `gpt-4o-realtime-preview` (text + audio).
+- 👤 Configurable agent personas (Tutor, Doctor, Translator, Recruiter, Companion).
+- 🎯 Server-side Voice Activity Detection (VAD) for natural turn-taking.
+- 🛠 Easily extendable with new prompts and behaviors.
 
-- `prompting.py`: Logic for dynamically constructing prompts using context.
-- `prompts.py`: Static or templated prompt definitions per agent or use case.
-- `requirements.txt`: Lists the required dependencies to run this system.
+---
 
-## Requirements
+## 📋 Prerequisites
 
-Install dependencies:
+- Python 3.11+
+- `pip` (Python package installer)
+- [VideoSDK Account](https://videosdk.live/) (for API Key/Secret and meetings)
+- [OpenAI Account](https://openai.com/product) (for API Key)
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the Repository (Optional)
+
+```bash
+git clone <your-repository-url>
+cd <repository-name>
+```
+
+Or ensure you have `prompting.py`, `prompts.py`, and `requirements.txt` in your working directory.
+
+### 2. Create and Activate a Virtual Environment
+
+**macOS/Linux:**
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+**Windows:**
+```bash
+python -m venv venv
+.\venv\Scripts\activate
+```
+
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Getting Started
+### 4. Create a `.env` File
 
-1. **Set up VideoSDK and OpenAI credentials** in your environment as per [VideoSDK docs](https://docs.videosdk.live/agents/overview).
+Create a file named `.env` in your project root with the following content:
 
-2. **Run your agent** using an entry script like the following:
-
-```python
-from videosdk.agents import AgentSession
-from prompting import generate_prompt  # example
-from prompts import TRIAGE_PROMPT  # example
-
-session = AgentSession(agent_name="TriageAgent")
-
-@session.on_call_start
-def on_start(call):
-    prompt = generate_prompt(call.context)
-    call.say(prompt)
-
-session.run_forever()
+```env
+OPENAI_API_KEY="<YOUR_OPENAI_API_KEY>"
+VIDEOSDK_AUTH_TOKEN"<YOUR_VIDEOSDK_AUTH_TOKEN>"
 ```
 
-3. **Define prompt behaviors** in `prompts.py` and implement logic to adjust responses in `prompting.py`.
+Replace the placeholders with your actual API keys.
 
-## Customization
+---
 
-- Add new personas by defining prompts and prompt templates in `prompts.py`.
-- Use logic in `prompting.py` to construct intelligent responses or context-aware prompts.
-- Plug in tools, APIs, or memory functions via `function_call` decorators.
+## 🔧 Configuration
+
+### 1. API Keys
+
+Make sure your `.env` file is properly configured as described above.
+
+### 2. Select a Use Case
+
+In `prompting.py`, set the `usecase` variable:
+
+```python
+usecase = "Companion"  # Change to "Doctor", "Tutor", etc.
+```
+
+Use cases are defined in `prompts.py` and include: "Tutor", "Doctor", "Recruiter", "Companion".
+
+### 3. Meeting Configuration
+
+Edit the `make_context` function in `prompting.py`:
+
+```python
+def make_context():
+    return {
+        "meetingId": "your-actual-meeting-id",  # Replace with actual ID
+        "name": "VideoSDK's AI Agent",
+    }
+```
+
+---
+
+## ▶️ Running the Agent
+
+1. Activate your virtual environment.
+2. Ensure `.env` and meeting ID are properly set.
+3. Run:
+
+```bash
+python prompting.py
+```
+
+You should see logs like:
+
+```
+Agent ... has entered the meeting
+```
+
+---
+
+## ➕ Adding New Use Cases
+
+### 1. Define the Prompt
+
+Edit `prompts.py`:
+
+```python
+PROMPTS = {
+    "YourNewUseCaseName": '''
+    You are an AI [role description].
+    - Your primary goal is to [goal].
+    - Behave in [manner].
+    - Specific instruction 1.
+    - Specific instruction 2.
+    ''',
+}
+```
+
+### 2. Select the New Use Case
+
+In `prompting.py`:
+
+```python
+usecase = "YourNewUseCaseName"
+```
+
+---
+
+```python
+return {
+    "meetingId": "...",
+    "name": "Agent",
+    "token": "your_pregenerated_auth_token"
+}
+```
+
+---
+
+## 📁 Project Files
+
+- `prompting.py`: Main agent runner script.
+- `prompts.py`: Defines prompts per use case.
+- `requirements.txt`: Lists Python dependencies.
+- `.env`: Stores API keys.
+
+---
+
+Happy hacking! 🎉
